@@ -1,0 +1,37 @@
+Q. What is tensorflow? 
+A. open source library for graph based numerical computation (created by Google Brain Team) 
+
+Provides low and high level API 
+- Addition, multiplication, differentiation 
+- Machine learning models 
+
+Q. What is tensor? 
+A. generalization of vectors and matrices, collection of numbers having a specific shape 
+
+Q. What is an activation function?
+A. To provide non-linearity
+
+Components of a typical hidden layer 
+Linear : Matrix multiplication 
+Nonlinear : Activation function 
+
+Optimizers
+1. SGD: single learning rate, simple and easy to interpret 
+2. RMS Prop (root means squared propagation): applies diff learning rate to each feature, allows for momentum to build and decay
+3. Adam (adaptive moment) optimizer: perform well with default parameter values 
+
+Random Initializers 
+-> often need to initialize thousands of variables 
+tf.ones() may perform poorly 
+Tedious and difficult to initialize variables individually 
+
+Alternatively, draw initial values from distribution 
+1. Normal 
+2. Uniform 
+3. Glorot Initializer 
+
+Sequential API 
+1. input layer
+2. hidden layer 
+3. output layer 
+4. ordered in sequence

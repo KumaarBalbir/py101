@@ -1,0 +1,184 @@
+Text processing pipeline: raw data > preprocessing > encoding > dataset & dataloader 
+
+Q. I have raw data, how to move to second step?
+NLTK: transform raw text to processed text
+
+preprocessing techniques:
+1. tokenization
+2. stop word removal
+3. stemming 
+4. rare word removal 
+
+> get tokens or words from text -> tokenization using torchtext
+(see code)
+
+> stop word removal: remove common words that do not contribute to the meaning
+ex- a, the, and, or, etc.
+
+> stemming: reducing words to their base form 
+ex - running, runs, ran becomes run 
+
+Q. Okay, I processed raw text. How to encode them?
+encoding: convert text into machine readable numbers 
+
+There are couple of techniques to do this:
+1. One hot encoding: transform words into unique numerical representations
+2. Bag of words (BoW): captures only word frequency, discards order
+3. TF-IDF: balances uniqueness and importance, How?
+4. Embedding: converts words into vectors, capturing semantic meaning.
+
+One-hot encoding -> map each word to a distinct vector (binary vector)
+ex - ['cat','dog','rabbit']
+'cat' = [1,0,0]
+'dog' = [0,1,0]
+'rabbit' = [0,0,1] 
+1: presence
+0: absence
+
+(see code)
+
+Bag of words -> treat each document as an unordered collection of words, focuses on frequency, not order
+ex- "The cat sat on the mat"
+BoW: {'the':2,'cat':1,'sat':1,'on':1,'mat':1} 
+
+TF-IDF (term frequency inverse document frequency)
+-> scores the importance of words in a document
+-> rare words have a higher score 
+-> common ones have a lower score
+-> emphasizes informative words, How?
+
+Q. What are word embeddings?
+-> prev encoding techniques are a good first step, often create too many features and can't identify similar words
+-> word embeddings map words to numerical vectors, maintains semantic relantioship, ex - King and Queen, Man and Woman
+
+word to index mapping 
+ex - "King" -> 1
+     "Queen" -> 2
+
+-> compact and computationally efficient
+-> follows tokenization in the pipeline
+
+(see code) 
+
+CNN: convolutional neural network 
+
+Convolution operation: slide a filter(kernel) over the input data, for each position of the filter, perform element wise calculations
+
+for text: learns structure and meaning of words 
+filter, stride, 
+CNN arch: convolutional layer, pooling layer, FCN 
+
+RNNs for text 
+-> handle sequence of varying lengths 
+-> maintan an internal short term memory 
+-> CNNs spot patterns in chunks 
+-> RNNs remember pas words for greater meaning
+
+LSTM: RNN variation 
+-> LSTM can capture complexities where RNNs may struggle 
+
+GRU: RNN variation 
+-> can quickly recognize spammy patterns without needing the full context
+
+Q. How do we evaluate text calculation model?
+Evaluation metrics - Accuracy, precision, recall, F1-score 
+
+Generative adversial networks (GAN)
+-> GAN can generate new contents that seems original (preserve statistical similarities)
+gan has two components: generator & discriminator 
+generator creates fake samples by adding noise. 
+discriminator: differentiate between real and generated text data
+
+Pretrained model in pytorch 
+Hugging face transformers: libraray of pre-trained models 
+pre-trained models: ex- GPT-2, T5, DistilGPT-2, BERT
+
+GPT2LMHeadModel: tailored for text generation
+GPT2Tokenizer: converts text into tokens
+
+Evaluating text generation 
+since text generation tasks create human like text, standard accuracy metrics such as accuracy, f1 fall short for these tasks. Why?
+we need metric that evaluate the quality of generated text. 
+
+BLEU and ROUGE
+
+Bilingual Evaluation Understudy (BLEU)
+-> compare the gen text and ref text
+-> checks for the occurrence of n-grams 
+
+In the sentence "The cat is on the mat"
+1-grams (uni-gram): [the, cat, is, on, the, the, mat]
+2-grams (bi-gram): ["the cat","cat is", "is on",...]
+and so on for n-grams.
+
+A perfect match: score = 1.0
+0 means no match.
+
+ROUGE (recall-oriented Understudy for gisting evaluation)
+-> compare gen text with ref text in two ways 
+-> ROUGE-N: considers overlapping n-grams (N=1 for unigrams, N=2 for bigrams, N=3 for trigrams, etc) in both texts.
+-> ROUGE-L: Looks at the longest common subsequence (LCS) between the texts
+-> ROUGE Metrics: 
+   F-measure: harmonic mean of precision and recall
+   precision: matches of n-grams in gen text within the ref text
+   recall: matches of n-grams in ref text withing the gen text
+-> 'rouge1', 'rouge2', and 'rougeL' prefixes refer to 1-gram, 2-gram or LCS, respectively.
+
+Considerations and limitations
+-> evaluate word presence, not semantic understanding
+-> sensitive to the length of the gen text 
+-> quality of ref text affects the scores 
+
+Transfer learning: use preexisting knowledge from one task to a related task.
+-> saves time
+-> shares expertise
+-> reduces need for large data 
+ex - an english teacher starts teaching history.
+
+Pre-trained model: BERT (bidirectional encoder representations from transformers)
+-> trained for lang modeling
+-> multiple layers of transformers
+-> pre-trained on large texts 
+(see code)
+
+Q. Why use transformers for text processing?
+1. speed
+2. understand the relantioship between words, regardless of distances 
+3. Human like response 
+
+Components of a transformer 
+1. Encoder: processes input data
+2. Decoder: reconstructs the output
+3. Feed forward NN: refine understanding 
+4. Postional encoding: ensure order matters
+5. Multi-head attention: captures multiple inputs or sentiments 
+
+Attention mechanism for text-generation 
+attention mechanisms 
+self and multi head attention 
+Self attenion: assigns siginificance to words within a sentence 
+ex- The cat, which was on the roof, was scared. Lininking "was scared" to "the cat"
+Multi head attenion: like having multiple spotlights, capturing diff facets
+ex- understanding "was scared" can relate to "the cat", "the roof", or "was on"
+
+Adversial attacks on text classification models 
+-> tweaks to input data 
+-> not random but calculated malicious changes 
+-> can drastically affect AI's decision making 
+
+importance of robustness 
+-> ai deciding if user comments are toxic or benign 
+-> ai unintentionally amplifying neg stereotypes from biased data 
+-> ai giving misleading info 
+
+Fast Gradient Sign Method (FGSM)
+-> exploits the model's learning information 
+-> makes the tiniest possible change to deceive the model 
+
+Projected Gradient Descent (PGD)
+-> more advanced version thant FGSM 
+-> tries to find the most effective disturbance 
+
+The Carlini & Wagner (C&W) attack 
+
+

@@ -1,0 +1,63 @@
+Develop a complete UNIT TEST suite
+Python unit test libraries: pytest (most popular), unittest, nosetests, doctest.
+
+
+****************************************** PROJECT STRUCTURE ******************************************
+data/ 
+src/
+|-- data/
+|--features/
+|--models/ 
+|--visualization/
+tests/
+|-- data/
+|--features/
+|--models/ 
+|--visualization/ 
+
+
+Convention for tests file names: test_*.py 
+
+What is a unit? 
+Small, independent piece of code. For example, a function or a class. 
+
+Running a unit test
+$ pytest test_square.py
+
+
+******************************************** PYTHON MODULE WITH TESTS ********************************************
+
+src/
+|-- data/
+|     |-- __init__.py 
+|     |-- preprocessing_helpers.py
+|--features/
+|     |-- __init__.py
+|     |-- feature_engineering.py
+|--models/ 
+|     |-- __init__.py
+|     |-- train.py
+|--visualization/
+|     |-- __init__.py
+|     |-- result_plot.py
+tests/
+|-- data/
+|     |-- __init__.py
+|     |-- test_preprocessing_helpers.py # correspond to src/data/preprocessing_helpers.py
+|--features/
+|     |-- __init__.py
+|     |-- test_feature_engineering.py # correspond to src/features/feature_engineering.py
+|--models/ 
+|     |-- __init__.py
+|     |-- test_train.py # correspond to src/models/train.py
+|--visualization/
+|     |-- __init__.py
+|     |-- test_result_plot.py # correspond to src/visualization/result_plot.py
+
+
+Running all tests:
+$ cd tests 
+$ pytest 
+
+See: 
+build passing, Codecov (code coverage) for github
